@@ -1,4 +1,4 @@
-package sample;
+package MineSweeper;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("MineSweeperUI.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Mine Sweeper");
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.show();
 

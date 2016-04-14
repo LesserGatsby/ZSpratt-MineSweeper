@@ -1,4 +1,4 @@
-package sample;
+package MineSweeper;
 
 public class Controller {
 }
