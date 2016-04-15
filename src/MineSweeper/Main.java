@@ -6,10 +6,15 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    View view = new View();
+    Controller controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -18,11 +23,16 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.show();
 
-        ChoiceBox choiceBox = (ChoiceBox) root.lookup("#DifficultyBox");
-        System.out.println(choiceBox);
+        view.difficultyBox = (ChoiceBox) root.lookup("#DifficultyBox");
+        view.clearCellsLeft = (Text)  root.lookup("#ClearCellsLeft");
+        view.mineBoard = (GridPane)  root.lookup("#MineBoard");
+        view.startButton = (Button)  root.lookup("#StartButton");
+
         ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard");
-        choiceBox.setItems(options);
-        choiceBox.getSelectionModel().selectFirst();
+        view.difficultyBox.setItems(options);
+        view.difficultyBox.getSelectionModel().selectFirst();
+
+        controller = new Controller(view);
     }
 
 
