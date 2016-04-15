@@ -6,21 +6,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MineField {
+    public int freeSpacesRemaining = 0;
     public String[][] mineField;
     public String bomb = "B";
+    public String space = " ";
     private int width;
     private int height;
 
     public MineField(int width, int height, int bombCount) {
         this.width = width;
         this.height = height;
+        freeSpacesRemaining = (width * height) - bombCount;
         mineField = new String[width][height];
 
         ArrayList<Vec2d> fieldArray = new ArrayList<Vec2d>();
 
         for (int i = 0; i < width; i++) {
             for (int n = 0; n < height; n++) {
-                mineField[i][n] = " ";
+                mineField[i][n] = space;
                 fieldArray.add(new Vec2d(i, n));
             }
         }
@@ -35,7 +38,9 @@ public class MineField {
         for (int i = 0; i < width; i++) {
             for (int n = 0; n < height; n++) {
                 if (!mineField[i][n].equals(bomb)) {
-                    mineField[i][n] = String.valueOf(bombCount(i, n));
+                    int c = bombCount(i, n);
+
+                    if (c != 0) mineField[i][n] = String.valueOf(c);
                 }
             }
         }
@@ -43,14 +48,14 @@ public class MineField {
 
     public int bombCount(int x, int y) {
         int count = 0;
-        if (x - 1 >= 0)          if (mineField[x - 1][y].equals(bomb)) count += 1;
+        if (x - 1 >= 0)         if (mineField[x - 1][y].equals(bomb)) count += 1;
         if (x + 1 < width)      if (mineField[x + 1][y].equals(bomb)) count += 1;
-        if (y - 1 >= 0)          if (mineField[x][y - 1].equals(bomb)) count += 1;
+        if (y - 1 >= 0)         if (mineField[x][y - 1].equals(bomb)) count += 1;
         if (y + 1 < height)     if (mineField[x][y + 1].equals(bomb)) count += 1;
-        if (x - 1 >= 0 && y - 1 >= 0)             if (mineField[x - 1][y - 1].equals(bomb)) count += 1;
+        if (x - 1 >= 0 && y - 1 >= 0)            if (mineField[x - 1][y - 1].equals(bomb)) count += 1;
         if (x - 1 >= 0 && y + 1 < height)        if (mineField[x - 1][y + 1].equals(bomb)) count += 1;
         if (x + 1 < width && y - 1 >= 0)         if (mineField[x + 1][y - 1].equals(bomb)) count += 1;
-        if (x + 1 < width && y + 1 < height)    if (mineField[x + 1][y + 1].equals(bomb)) count += 1;
+        if (x + 1 < width && y + 1 < height)     if (mineField[x + 1][y + 1].equals(bomb)) count += 1;
         return count;
     }
 }

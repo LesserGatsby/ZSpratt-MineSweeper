@@ -3,6 +3,8 @@ package MineSweeper;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,10 +29,19 @@ public class Main extends Application {
         view.clearCellsLeft = (Text)  root.lookup("#ClearCellsLeft");
         view.mineBoard = (GridPane)  root.lookup("#MineBoard");
         view.startButton = (Button)  root.lookup("#StartButton");
+        view.playStatus = (Text)  root.lookup("#PlayStatus");
 
         ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard");
         view.difficultyBox.setItems(options);
         view.difficultyBox.getSelectionModel().selectFirst();
+
+        view.startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                view.mineBoard.getChildren().clear();
+                controller = new Controller(view);
+            }
+        });
 
         controller = new Controller(view);
     }

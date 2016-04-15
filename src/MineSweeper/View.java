@@ -10,4 +10,5 @@ public class View {
     Button startButton;
     Text clearCellsLeft;
     GridPane mineBoard;
+    Text playStatus;
 }
