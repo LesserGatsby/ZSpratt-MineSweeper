@@ -43,13 +43,13 @@ public class MineField {
 
     public int bombCount(int x, int y) {
         int count = 0;
-        if (x - 1 > 0)          if (mineField[x - 1][y].equals(bomb)) count += 1;
+        if (x - 1 >= 0)          if (mineField[x - 1][y].equals(bomb)) count += 1;
         if (x + 1 < width)      if (mineField[x + 1][y].equals(bomb)) count += 1;
-        if (y - 1 > 0)          if (mineField[x][y - 1].equals(bomb)) count += 1;
+        if (y - 1 >= 0)          if (mineField[x][y - 1].equals(bomb)) count += 1;
         if (y + 1 < height)     if (mineField[x][y + 1].equals(bomb)) count += 1;
-        if (x - 1 > 0 && y - 1 > 0)             if (mineField[x - 1][y - 1].equals(bomb)) count += 1;
-        if (x - 1 > 0 && y + 1 < height)        if (mineField[x - 1][y + 1].equals(bomb)) count += 1;
-        if (x + 1 < width && y - 1 > 0)         if (mineField[x + 1][y - 1].equals(bomb)) count += 1;
+        if (x - 1 >= 0 && y - 1 >= 0)             if (mineField[x - 1][y - 1].equals(bomb)) count += 1;
+        if (x - 1 >= 0 && y + 1 < height)        if (mineField[x - 1][y + 1].equals(bomb)) count += 1;
+        if (x + 1 < width && y - 1 >= 0)         if (mineField[x + 1][y - 1].equals(bomb)) count += 1;
         if (x + 1 < width && y + 1 < height)    if (mineField[x + 1][y + 1].equals(bomb)) count += 1;
         return count;
     }
