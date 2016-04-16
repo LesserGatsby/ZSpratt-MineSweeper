@@ -3,14 +3,15 @@ package MineSweeper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.text.TextAlignment;
 
 public class Controller {
     View view;
     MineField field;
     Button[][] buttonField;
-    int width = 10;
-    int height = 10;
-    int bombCount = 10;
+    int width = 50;
+    int height = 50;
+    int bombCount = 100;
 
     public Controller(View v) {
         view = v;
@@ -23,8 +24,9 @@ public class Controller {
             for (int n = 0; n < height; n++) {
                 Button b = new Button(" ");
                 double size = 30.0;
-                b.setMinSize(size, size);
-                b.setMaxSize(size, size);
+                b.setPrefSize(size, size);
+                b.setMinSize(0.0, 0.0);
+                b.setTextAlignment(TextAlignment.CENTER);
                 b.setStyle("-fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color; \n" +
                         "    -fx-background-insets: 0, 1, 2;\n" +
                         "    -fx-background-radius: 5, 4, 3;");
