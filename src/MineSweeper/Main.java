@@ -20,21 +20,25 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //loads up the fxml and creates scene
         Parent root = FXMLLoader.load(getClass().getResource("MineSweeperUI.fxml"));
         primaryStage.setTitle("Mine Sweeper");
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.show();
 
+        //Hooks up Exposed UI to view
         view.difficultyBox = (ChoiceBox) root.lookup("#DifficultyBox");
         view.clearCellsLeft = (Text)  root.lookup("#ClearCellsLeft");
         view.mineBoard = (GridPane)  root.lookup("#MineBoard");
         view.startButton = (Button)  root.lookup("#StartButton");
         view.playStatus = (Text)  root.lookup("#PlayStatus");
 
+        //Sets options in difficult selector
         ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard");
         view.difficultyBox.setItems(options);
         view.difficultyBox.getSelectionModel().selectFirst();
 
+        //Sets up action for start button, done here for convenience
         view.startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
