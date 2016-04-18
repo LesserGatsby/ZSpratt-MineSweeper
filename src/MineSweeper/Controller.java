@@ -3,6 +3,8 @@ package MineSweeper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -42,11 +44,24 @@ public class Controller {
                 int x = i;
                 int y = n;
 
-                b.setOnAction(new EventHandler<ActionEvent>() {
+                b.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
                     @Override
-                    public void handle(ActionEvent event) {
-                        cliokOn(x, y);
+                    public void handle(MouseEvent event) {
+                        //LeftClick  Digs up spot
+                        if (event.getButton().equals(MouseButton.PRIMARY)) {
+                            if (!buttonField[x][y].getText().equals("F")) {
+                                cliokOn(x, y);
+                            }
+                        }
+                        //RightClick  Plants Flag
+                        if (event.getButton().equals(MouseButton.SECONDARY)) {
+                            if (!buttonField[x][y].getText().equals("F")) {
+                                buttonField[x][y].setText("F");
+                            } else {
+                                buttonField[x][y].setText(" ");
+                            }
+                        }
                     }
                 });
 
@@ -81,6 +96,7 @@ public class Controller {
         } else if (field.mineField[x][y].equals(field.space)) {
             //Clicked on space, recursively clicks surrounding buttons
             clickedNotBomb(x, y);
+            buttonField[x][y].setText(" ");
             if (x - 1 >= 0      && !(buttonField[x - 1][y].disabledProperty().getValue()))      cliokOn(x - 1, y);
             if (x + 1 < width   && !(buttonField[x + 1][y].disabledProperty().getValue()))      cliokOn(x + 1, y);
             if (y - 1 >= 0      && !(buttonField[x][y - 1].disabledProperty().getValue()))      cliokOn(x, y - 1);
