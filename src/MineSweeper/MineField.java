@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class MineField {
+    boolean generated = false;
     public int freeSpacesRemaining = 0;
     public String[][] mineField;
     public String bomb = "B";
@@ -18,6 +19,9 @@ public class MineField {
         this.width = width;
         this.height = height;
         freeSpacesRemaining = (width * height) - bombCount;
+    }
+
+    public void generate(int width, int height, int bombCount, int x, int y) {
         mineField = new String[width][height];
 
         //stores bomb positions in vectors in arraylist
@@ -30,6 +34,9 @@ public class MineField {
                 fieldArray.add(new Vec2d(i, n));
             }
         }
+
+        //removes fitst click from bomb options
+        fieldArray.remove(new Vec2d(x, y));
 
         Collections.shuffle(fieldArray);
 

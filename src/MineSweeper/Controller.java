@@ -51,6 +51,10 @@ public class Controller {
                         //LeftClick  Digs up spot
                         if (event.getButton().equals(MouseButton.PRIMARY)) {
                             if (!buttonField[x][y].getText().equals("F")) {
+                                if (!field.generated) {
+                                    field.generate(width, height, bombCount, x, y);
+                                    field.generated = true;
+                                }
                                 cliokOn(x, y);
                             }
                         }
