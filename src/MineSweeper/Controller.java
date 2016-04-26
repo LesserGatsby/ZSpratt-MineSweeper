@@ -3,6 +3,9 @@ package MineSweeper;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -88,16 +91,29 @@ public class Controller {
     public void disableAllButtons() {
         for (int i = 0; i < width; i++) {
             for (int n = 0; n < height; n++) {
-                field.buttonField[i][n].setText(field.mineField[i][n]);
+                if (!field.mineField[i][n].equals(field.bomb)) {
+                    field.buttonField[i][n].setText(field.mineField[i][n]);
+                    field.buttonField[i][n].setGraphic(null);
+                }
 
                 if (!field.mineField[i][n].equals(field.bomb)) {
                     field.buttonField[i][n].setDisable(true);
                 } else {
+                    setButtonGraphic(field.buttonField[i][n], view.bomb);
                     field.buttonField[i][n].setOnAction(event -> {
 
                     });
                 }
             }
         }
+    }
+
+    public void setButtonGraphic(Button b, Image i) {
+        ImageView iv = new ImageView(i);
+        iv.fitWidthProperty().bind(b.widthProperty().multiply(0.90));
+        iv.fitHeightProperty().bind(b.heightProperty().multiply(0.90));
+        iv.setPreserveRatio(true);
+        b.setGraphic(iv);
+        b.setContentDisplay(ContentDisplay.CENTER);
     }
 }

@@ -4,6 +4,8 @@ import com.sun.javafx.geom.Vec2d;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextAlignment;
@@ -103,7 +105,6 @@ public class MineField {
         } else if (mineField[x][y].equals(space)) {
             //Clicked on space, recursively clicks surrounding buttons
             clickedNotBomb(x, y);
-            buttonField[x][y].setText(" ");
             if (x - 1 >= 0      && !(buttonField[x - 1][y].disabledProperty().getValue()))      expose(x - 1, y);
             if (x + 1 < width   && !(buttonField[x + 1][y].disabledProperty().getValue()))      expose(x + 1, y);
             if (y - 1 >= 0      && !(buttonField[x][y - 1].disabledProperty().getValue()))      expose(x, y - 1);
@@ -132,10 +133,10 @@ public class MineField {
     public boolean mark(int x, int y) {
         if (!isMarked(x, y)) {
             markField[x][y] = flag;
-            buttonField[x][y].setText(markField[x][y]);
+            controller.setButtonGraphic(buttonField[x][y], view.flag);
         } else {
             markField[x][y] = space;
-            buttonField[x][y].setText(markField[x][y]);
+            buttonField[x][y].setGraphic(null);
         }
 
         return isMarked(x, y);
