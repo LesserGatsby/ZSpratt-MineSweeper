@@ -1,3 +1,4 @@
+//  Author: Zachary Spratt
 package MineSweeper;
 
 import javafx.application.Application;
@@ -39,12 +40,9 @@ public class Main extends Application {
         view.difficultyBox.getSelectionModel().selectFirst();
 
         //Sets up action for start button, done here for convenience
-        view.startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                view.mineBoard.getChildren().clear();
-                controller = new Controller(view);
-            }
+        view.startButton.setOnAction(event -> {
+            view.mineBoard.getChildren().clear();
+            controller = new Controller(view);
         });
 
         controller = new Controller(view);
