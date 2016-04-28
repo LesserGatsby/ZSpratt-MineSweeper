@@ -77,7 +77,7 @@ public class Controller {
         if(view.difficultyBox.getValue().equals("Easy")) {
             width = 8;
             height = 8;
-            bombCount = 1;
+            bombCount = 10;
         } else if(view.difficultyBox.getValue().equals("Medium")) {
             width = 16;
             height = 16;

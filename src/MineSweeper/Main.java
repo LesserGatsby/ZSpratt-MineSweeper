@@ -2,6 +2,7 @@
 package MineSweeper;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
     View view = new View();
@@ -55,6 +57,16 @@ public class Main extends Application {
         });
 
         controller = new Controller(view);
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                view.timer.interrupt();
+
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
 
