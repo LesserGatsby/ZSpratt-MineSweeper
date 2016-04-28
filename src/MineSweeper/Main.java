@@ -3,6 +3,10 @@ package MineSweeper;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,9 +19,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.IOException;
 
 public class Main extends Application {
     View view = new View();
@@ -46,14 +54,21 @@ public class Main extends Application {
         view.timerSegment[2].setImage(view.timerDD[0]);
 
         //Sets options in difficult selector
-        ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard");
+        ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard", "Custom", "Last Custom Game");
         view.difficultyBox.setItems(options);
         view.difficultyBox.getSelectionModel().selectFirst();
+
+        //Creates and sets off timer
+        view.timer = new TimerObject(view);
+        view.timer.start();
 
         //Sets up action for start button, done here for convenience
         view.startButton.setOnAction(event -> {
             view.mineBoard.getChildren().clear();
-            controller = new Controller(view);
+            view.timer.running = false;
+            view.timer = new TimerObject(view);
+            view.timer.start();
+            controller.RunController(view);
         });
 
         controller = new Controller(view);
@@ -66,6 +81,27 @@ public class Main extends Application {
                 Platform.exit();
                 System.exit(0);
             }
+        });
+
+        //Custom Size Option
+        //CustomOption
+
+        view.difficultyBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (view.difficultyBox.getValue().equals("Custom")) {
+                    try {
+                        controller.isCustom = true;
+                        PopupWindow pop = new PopupWindow(view, controller, primaryStage);
+                        view.difficultyBox.getSelectionModel().selectLast();
+                    } catch (IOException e) {
+
+                    }
+                } else {
+                    controller.isCustom = false;
+                }
+            }
+
         });
     }
 

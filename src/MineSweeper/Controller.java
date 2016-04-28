@@ -14,11 +14,17 @@ import javafx.scene.text.TextAlignment;
 public class Controller {
     private View view;
     private MineField field;
-    private int width = 20;
-    private int height = 20;
-    private int bombCount = 20;
+    public int width = 20;
+    public int height = 20;
+    public int bombCount = 20;
+
+    public boolean isCustom = false;
 
     public Controller(View v) {
+        RunController(v);
+    }
+
+    public void RunController(View v) {
         //References to exposed UI elements
         view = v;
 
@@ -67,25 +73,25 @@ public class Controller {
             }
         }
 
-        //Creates and sets off Timer
-        view.timer = new TimerObject(view);
-        view.timer.start();
+        view.timer.reset();
     }
 
     private void getWIdthAndBombCount() {
-        //DifficultySettings
-        if(view.difficultyBox.getValue().equals("Easy")) {
-            width = 8;
-            height = 8;
-            bombCount = 10;
-        } else if(view.difficultyBox.getValue().equals("Medium")) {
-            width = 16;
-            height = 16;
-            bombCount = 40;
-        } else if(view.difficultyBox.getValue().equals("Hard")) {
-            width = 30;
-            height = 16;
-            bombCount = 99;
+        if (!isCustom) {
+            //DifficultySettings
+            if (view.difficultyBox.getValue().equals("Easy")) {
+                width = 8;
+                height = 8;
+                bombCount = 10;
+            } else if (view.difficultyBox.getValue().equals("Medium")) {
+                width = 16;
+                height = 16;
+                bombCount = 40;
+            } else if (view.difficultyBox.getValue().equals("Hard")) {
+                width = 30;
+                height = 16;
+                bombCount = 99;
+            }
         }
     }
 
