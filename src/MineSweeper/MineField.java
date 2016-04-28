@@ -12,6 +12,7 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class MineField {
     boolean generated = false;
@@ -100,7 +101,10 @@ public class MineField {
         if (mineField[x][y].equals(bomb)) {
             //Clicked on a mine, ends game and displays all tiles
             controller.disableAllButtons();
-            view.playStatus.setText("Loss");
+
+            //Sets Timer to loss;
+            view.timer.setLoss();
+
             return -1;
         } else if (mineField[x][y].equals(space)) {
             //Clicked on space, recursively clicks surrounding buttons
@@ -117,7 +121,9 @@ public class MineField {
         }
 
         if (freeSpacesRemaining == 0) {
-            view.playStatus.setText("Victory");
+            //Sets Timer to victory mode
+            view.timer.setWin();
+
         }
 
         return bombCount(x, y);

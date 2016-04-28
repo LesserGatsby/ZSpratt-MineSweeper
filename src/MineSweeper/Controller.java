@@ -67,8 +67,9 @@ public class Controller {
             }
         }
 
-        //Sets play status
-        view.playStatus.setText("Playing");
+        //Creates and sets off Timer
+        view.timer = new TimerObject(view);
+        view.timer.start();
     }
 
     private void getWIdthAndBombCount() {
@@ -76,7 +77,7 @@ public class Controller {
         if(view.difficultyBox.getValue().equals("Easy")) {
             width = 8;
             height = 8;
-            bombCount = 10;
+            bombCount = 1;
         } else if(view.difficultyBox.getValue().equals("Medium")) {
             width = 16;
             height = 16;

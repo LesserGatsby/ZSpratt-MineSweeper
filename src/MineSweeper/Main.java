@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,7 +34,14 @@ public class Main extends Application {
         view.clearCellsLeft = (Text)  root.lookup("#ClearCellsLeft");
         view.mineBoard = (GridPane)  root.lookup("#MineBoard");
         view.startButton = (Button)  root.lookup("#StartButton");
-        view.playStatus = (Text)  root.lookup("#PlayStatus");
+
+        view.timerSegment = new ImageView[5];
+        for (int i = 0; i < 5; i++) {
+            view.timerSegment[i] = (ImageView)  root.lookup("#TimerSeg" + i);
+            view.timerSegment[i].setEffect(view.red);
+        }
+        //sets start segment for doubleDot
+        view.timerSegment[2].setImage(view.timerDD[0]);
 
         //Sets options in difficult selector
         ObservableList<String> options = FXCollections.observableArrayList("Easy", "Medium", "Hard");
