@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class MineField {
     boolean generated = false;
-    private int freeSpacesRemaining = 0;
+    public int freeSpacesRemaining = 0;
     private Controller controller;
     public String[][] mineField;
     private String[][] markField;

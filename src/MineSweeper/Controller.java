@@ -1,3 +1,4 @@
+//Author: Zachary Spratt
 package MineSweeper;
 
 import javafx.event.ActionEvent;
@@ -29,7 +30,7 @@ public class Controller {
         view = v;
 
         //Sets up width, height, and bombs in minefield
-        getWIdthAndBombCount();
+        getWidthAndBombCount();
         field = new MineField(view, this, width, height, bombCount);
 
         field.buttonField = new Button[width][height];
@@ -74,9 +75,10 @@ public class Controller {
         }
 
         view.timer.reset();
+        view.clearCellsLeft.setText(String.valueOf(field.freeSpacesRemaining));
     }
 
-    private void getWIdthAndBombCount() {
+    private void getWidthAndBombCount() {
         if (!isCustom) {
             //DifficultySettings
             if (view.difficultyBox.getValue().equals("Easy")) {
